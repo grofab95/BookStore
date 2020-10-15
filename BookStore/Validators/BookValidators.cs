@@ -1,13 +1,13 @@
-﻿using BookStore.Exceptions;
+﻿using BookStore.Common.Exceptions;
 
 namespace BookStore.Validators
 {
-    public class BookValidator
+    public class BookValidators
     {
         public static void ValidTitle(string title)
         {
             if (string.IsNullOrEmpty(title))
-                throw new EmptyTitle();
+                throw new MissingTitle();
         }
     }
 }

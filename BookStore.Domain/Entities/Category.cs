@@ -8,7 +8,7 @@ namespace BookStore.Domain.Entities
 
         public Category(string name)
         {
-            CategoryValidator.ValidName(name);
+            CategoryValidators.ValidName(name);
 
             Name = name;
         }

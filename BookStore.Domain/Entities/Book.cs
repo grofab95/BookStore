@@ -12,7 +12,7 @@ namespace BookStore.Domain.Entities
 
         public Book(string title, Category category)
         {
-            BookValidator.ValidTitle(title);
+            BookValidators.ValidTitle(title);
 
             Title = title;            
             Category = category;

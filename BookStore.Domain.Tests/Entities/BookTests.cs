@@ -1,5 +1,5 @@
-﻿using BookStore.Domain.Entities;
-using BookStore.Exceptions;
+﻿using BookStore.Common.Exceptions;
+using BookStore.Domain.Entities;
 using Xunit;
 
 namespace BookStore.Domain.Tests.Entities
@@ -12,11 +12,12 @@ namespace BookStore.Domain.Tests.Entities
         private readonly string _authorLastName = "London";
 
         private Book _book;
+        private Category _category;
 
         public BookTests()
         {
-            var category = new Category(_categoryName);
-            _book = new Book(_bookTitle, category);
+            _category = new Category(_categoryName);
+            _book = new Book(_bookTitle, _category);
         }
 
         [Fact]
@@ -38,10 +39,12 @@ namespace BookStore.Domain.Tests.Entities
             Assert.NotNull(_book.Authors); 
         }
 
-        [Fact]
-        public void ValidTitle_For_EmptyTitle_Throw_EmptyTitle()
+        [Theory]
+        [InlineData("")]
+        [InlineData(null)]
+        public void ValidTitle_For_MissingTitle_Throw_EmptyTitle(string title)
         {
-            Assert.Throws<EmptyTitle>(() => new Book("", null));
+            Assert.Throws<MissingTitle>(() => new Book(title, _category));
         }
 
         [Fact]

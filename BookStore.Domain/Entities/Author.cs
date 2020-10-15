@@ -9,8 +9,7 @@ namespace BookStore.Domain.Entities
 
         public Author(string firstName, string lastName)
         {
-            AuthorValidator.ValidFirstName(firstName);
-            AuthorValidator.ValidLastName(lastName);
+            AuthorValidators.ValidAuthorName(firstName, lastName);
 
             FirstName = firstName;
             LastName = lastName;

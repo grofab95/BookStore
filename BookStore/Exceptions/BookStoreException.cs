@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace BookStore.Exceptions
+namespace BookStore.Common.Exceptions
 {
     public class BookStoreException : Exception
     {

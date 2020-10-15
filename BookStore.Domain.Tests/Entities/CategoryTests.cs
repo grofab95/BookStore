@@ -1,5 +1,5 @@
-﻿using BookStore.Domain.Entities;
-using BookStore.Exceptions;
+﻿using BookStore.Common.Exceptions;
+using BookStore.Domain.Entities;
 using Xunit;
 
 namespace BookStore.Domain.Tests.Entities
@@ -15,9 +15,9 @@ namespace BookStore.Domain.Tests.Entities
         }
 
         [Fact]
-        public void ValidName_For_EmptyName_Throw_EmptyName()
+        public void ValidName_For_MissingName_Throw_EmptyName()
         {
-            Assert.Throws<EmptyName>(() => new Category(""));
+            Assert.Throws<MissingName>(() => new Category(""));
         }
     }
 }

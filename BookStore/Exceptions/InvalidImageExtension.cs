@@ -1,4 +1,4 @@
-﻿namespace BookStore.Exceptions
+﻿namespace BookStore.Common.Exceptions
 {
     public class InvalidImageExtension : BookStoreException
     {

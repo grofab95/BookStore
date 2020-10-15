@@ -1,5 +1,5 @@
-﻿using BookStore.Domain.Entities;
-using BookStore.Exceptions;
+﻿using BookStore.Common.Exceptions;
+using BookStore.Domain.Entities;
 using Xunit;
 
 namespace BookStore.Domain.Tests.Entities
@@ -25,16 +25,26 @@ namespace BookStore.Domain.Tests.Entities
             Assert.NotNull(author.LastName);
         }
 
-        [Fact]
-        public void ValidAuthor_For_EmptyFirstName_Throw_EmptyFirstName()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public void ValidAuthorName_For_MissingFirstName_Throw_MissingFirstName(string firstName)
         {
-            Assert.Throws<EmptyFirstName>(() => new Author("", _lastName));
+            Assert.Throws<MissingFirstName>(() => new Author(firstName, _lastName));
+        }
+
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        public void ValidAuthorName_For_MissingLastName_Throw_MissingLastName(string lastName)
+        {
+            Assert.Throws<MissingLastName>(() => new Author(_firstName, lastName));
         }
 
         [Fact]
-        public void ValidAuthor_For_EmptyLastName_Throw_EmptyLastName()
+        public void ValidAuthoName_For_SameNames_Throw_SameNames()
         {
-            Assert.Throws<EmptyLastName>(() => new Author(_firstName, ""));
+            Assert.Throws<SameNames>(() => new Author(_firstName, _firstName));
         }
     }
 }
