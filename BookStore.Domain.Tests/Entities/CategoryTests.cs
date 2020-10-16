@@ -1,5 +1,6 @@
 ﻿using BookStore.Common.Exceptions;
 using BookStore.Domain.Entities;
+using FluentAssertions;
 using Xunit;
 
 namespace BookStore.Domain.Tests.Entities
@@ -11,13 +12,15 @@ namespace BookStore.Domain.Tests.Entities
         {
             var category = new Category("Adventures");
 
-            Assert.NotNull(category.Name);
+            category.Name.Should().NotBeNull();
         }
 
         [Fact]
         public void ValidName_For_MissingName_Throw_EmptyName()
         {
-            Assert.Throws<MissingName>(() => new Category(""));
+            FluentActions.Invoking(() => new Category(""))
+                .Should()
+                .Throw<MissingName>();
         }
     }
 }

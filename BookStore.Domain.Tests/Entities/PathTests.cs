@@ -1,5 +1,6 @@
 ﻿using BookStore.Common.Exceptions;
 using BookStore.Domain.Entities;
+using FluentAssertions;
 using Xunit;
 
 namespace BookStore.Domain.Tests.Entities
@@ -17,23 +18,27 @@ namespace BookStore.Domain.Tests.Entities
         [Fact]
         public void CreatedPathShouldHasValue()
         {
-            Assert.NotNull(_path.Value);
+            _path.Value.Should().NotBeNullOrEmpty();
         }
 
         [Fact]
         public void ValidPath_For_FileExtension_Throw_MissingExtension()
         {
-            var path = "location/imagepng";
+            var value = "location/imagepng";
 
-            Assert.Throws<MissingExtension>(() => new Path(path));
+            FluentActions.Invoking(() => new Path(value))
+                .Should()
+                .Throw<MissingExtension>();
         }
 
         [Fact]
         public void ValidPath_For_OnlyOneDot_Throw_InvalidExtension()
         {
-            var path = "location.pictures/image.png";
+            var value = "location.pictures/image.png";
 
-            Assert.Throws<InvalidExtension>(() => new Path(path));
+            FluentActions.Invoking(() => new Path(value))
+                .Should()
+                .Throw<InvalidExtension>();
         }
     }
 }

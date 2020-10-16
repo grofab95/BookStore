@@ -1,5 +1,6 @@
 ﻿using BookStore.Common.Exceptions;
 using BookStore.Domain.Entities;
+using FluentAssertions;
 using Xunit;
 
 namespace BookStore.Domain.Tests.Entities
@@ -23,20 +24,19 @@ namespace BookStore.Domain.Tests.Entities
         [Fact]
         public void CreatedBookShouldHasTitle()
         {
-            Assert.NotNull(_book.Title);
+            _book.Title.Should().NotBeNullOrEmpty();
         }
 
         [Fact]
         public void CreatedBookShouldHasCategory()
         {
-            Assert.NotNull(_book.Category);
+            _book.Category.Should().NotBeNull();
         }
-
 
         [Fact]
         public void CreatedBookShouldHasNotNullAuthorsList()
         {
-            Assert.NotNull(_book.Authors); 
+            _book.Authors.Should().NotBeNull();  
         }
 
         [Theory]
@@ -44,7 +44,9 @@ namespace BookStore.Domain.Tests.Entities
         [InlineData(null)]
         public void ValidTitle_For_MissingTitle_Throw_EmptyTitle(string title)
         {
-            Assert.Throws<MissingTitle>(() => new Book(title, _category));
+            FluentActions.Invoking(() => new Book(title, _category))
+                .Should()
+                .Throw<MissingTitle>();
         }
 
         [Fact]
@@ -54,7 +56,7 @@ namespace BookStore.Domain.Tests.Entities
 
             _book.AddAuthor(author);
 
-            Assert.Contains(author, _book.Authors);
+            _book.Authors.Should().Contain(author);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BookStore.Common.Exceptions;
 using BookStore.Domain.Entities;
+using FluentAssertions;
 using Xunit;
 
 namespace BookStore.Domain.Tests.Entities
@@ -18,7 +19,7 @@ namespace BookStore.Domain.Tests.Entities
         [Fact]
         public void CreatedImageShuldHasPath()
         {
-            Assert.NotNull(_image.Path);
+            _image.Path.Should().NotBeNullOrEmpty();
         }
 
         [Theory]
@@ -31,7 +32,9 @@ namespace BookStore.Domain.Tests.Entities
         {
             var path = new Path($"location/image.{imageExtension}");
 
-            Assert.Throws<InvalidImageExtension>(() => new Image(path));
+            FluentActions.Invoking(() => new Image(path))
+                .Should()
+                .Throw<InvalidImageExtension>();
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using BookStore.Common.Exceptions;
 using BookStore.Domain.Entities;
+using FluentAssertions;
 using Xunit;
 
 namespace BookStore.Domain.Tests.Entities
@@ -14,7 +15,7 @@ namespace BookStore.Domain.Tests.Entities
         {
             var author = new Author(_firstName, _lastName);
 
-            Assert.NotNull(author.FirstName);
+            author.FirstName.Should().NotBeNullOrEmpty();
         }
 
         [Fact]
@@ -22,7 +23,7 @@ namespace BookStore.Domain.Tests.Entities
         {
             var author = new Author(_firstName, _lastName);
 
-            Assert.NotNull(author.LastName);
+            author.LastName.Should().NotBeNullOrEmpty();
         }
 
         [Theory]
@@ -30,7 +31,9 @@ namespace BookStore.Domain.Tests.Entities
         [InlineData("")]
         public void ValidAuthorName_For_MissingFirstName_Throw_MissingFirstName(string firstName)
         {
-            Assert.Throws<MissingFirstName>(() => new Author(firstName, _lastName));
+            FluentActions.Invoking(() => new Author(firstName, _lastName))
+                .Should()
+                .Throw<MissingFirstName>();
         }
 
         [Theory]
@@ -38,13 +41,17 @@ namespace BookStore.Domain.Tests.Entities
         [InlineData("")]
         public void ValidAuthorName_For_MissingLastName_Throw_MissingLastName(string lastName)
         {
-            Assert.Throws<MissingLastName>(() => new Author(_firstName, lastName));
+            FluentActions.Invoking(() => new Author(_firstName, lastName))
+                .Should()
+                .Throw<MissingLastName>();
         }
 
         [Fact]
         public void ValidAuthoName_For_SameNames_Throw_SameNames()
         {
-            Assert.Throws<SameNames>(() => new Author(_firstName, _firstName));
+            FluentActions.Invoking(() => new Author(_firstName, _firstName))
+                .Should()
+                .Throw<SameNames>();
         }
     }
 }
