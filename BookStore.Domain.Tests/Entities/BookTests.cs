@@ -22,13 +22,19 @@ namespace BookStore.Domain.Tests.Entities
                 new Author("Jack", "London")
             };
 
-            _book = new Book(_bookTitle, _category, _authors);           
+            _book = new Book(_bookTitle, _category, 5, _authors);           
         }
 
         [Fact]
         public void Book_Should_HasCategory()
         {
             _book.Category.Should().NotBeNull();
+        }
+
+        [Fact]
+        public void Book_Should_HasStock()
+        {
+            _book.Stock.Should().NotBeNull();
         }
 
         [Fact]
@@ -46,7 +52,7 @@ namespace BookStore.Domain.Tests.Entities
         [InlineData(" ")]
         public void ValidTitle_For_MissingTitle_Throw_MissingTitle(string title)
         {
-            FluentActions.Invoking(() => new Book(title, _category, _authors))
+            FluentActions.Invoking(() => new Book(title, _category, 5, _authors))
                 .Should()
                 .Throw<MissingTitle>();
         }
@@ -54,7 +60,7 @@ namespace BookStore.Domain.Tests.Entities
         [Fact]
         public void ValidAuthors_For_MissingAuthors_Throw_MissingAuthors()
         {
-            FluentActions.Invoking(() => new Book(_bookTitle, _category, null))
+            FluentActions.Invoking(() => new Book(_bookTitle, _category, 5, null))
                 .Should()
                 .Throw<MissingAuthors>();
         }
@@ -63,7 +69,7 @@ namespace BookStore.Domain.Tests.Entities
         public void ValidAuthors_For_EmptyAuthorsList_Throw_MissingAuthors()
         {
             var authors = new List<Author>();
-            FluentActions.Invoking(() => new Book(_bookTitle, _category, authors))
+            FluentActions.Invoking(() => new Book(_bookTitle, _category, 5, authors))
                 .Should()
                 .Throw<MissingAuthors>();
         }

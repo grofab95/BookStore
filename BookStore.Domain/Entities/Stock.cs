@@ -1,7 +1,6 @@
 ﻿using BookStore.Common.Enums;
 using BookStore.Common.Exceptions;
-using System;
-using System.Net.Http.Headers;
+using BookStore.Common.Utilities;
 
 namespace BookStore.Domain.Entities
 {
@@ -32,14 +31,18 @@ namespace BookStore.Domain.Entities
                 RetailPriceGross = price;
         }
 
-        public decimal WholesalePriceNet
-        {
-            get
-            {
-                var calculateVat = (decimal)((Vat + 100) * 0.01);
+        public decimal WholesalePriceNet 
+            => PriceCalculator.CalculateNetByGrossAndVat(WholesalePriceGross, Vat);
 
-                return Math.Round(WholesalePriceGross / calculateVat, 2);
-            }
+        public decimal RetailPriceNet 
+            => PriceCalculator.CalculateNetByGrossAndVat(RetailPriceGross, Vat);
+
+        public void SetQuantity(int quantity)
+        {
+            if (quantity < 0)
+                throw new NegativeQuantity();
+
+            Quantity = quantity;
         }
     }
 }

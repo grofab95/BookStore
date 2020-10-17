@@ -7,9 +7,10 @@ namespace BookStore.Domain.Entities
     {
         public string Title { get; }
         public Category Category { get; }
+        public Stock Stock { get; set; }
         public List<Author> Authors { get; }
 
-        public Book(string title, Category category, List<Author> authors)
+        public Book(string title, Category category, int vat, List<Author> authors)
         {
             BookValidators.ValidTitle(title);
             BookValidators.ValidAuthors(authors);
@@ -17,6 +18,7 @@ namespace BookStore.Domain.Entities
             Title = title;            
             Category = category;
             Authors = authors;
+            Stock = new Stock(vat);
         }
     }
 }
