@@ -11,7 +11,7 @@ namespace BookStore.Domain.Tests.Entities
         private readonly string _lastName = "London";
 
         [Fact]
-        public void CreatedAuthor_Should_HasFirstName()
+        public void Author_Should_HasFirstName()
         {
             var author = new Author(_firstName, _lastName);
 
@@ -19,7 +19,7 @@ namespace BookStore.Domain.Tests.Entities
         }
 
         [Fact]
-        public void CreatedAuthor_Should_HasLastName()
+        public void Author_Should_HasLastName()
         {
             var author = new Author(_firstName, _lastName);
 
@@ -47,7 +47,7 @@ namespace BookStore.Domain.Tests.Entities
         }
 
         [Fact]
-        public void ValidAuthoName_For_SameNames_Throw_SameNames()
+        public void ValidAuthorName_For_SameNames_Throw_SameNames()
         {
             FluentActions.Invoking(() => new Author(_firstName, _firstName))
                 .Should()

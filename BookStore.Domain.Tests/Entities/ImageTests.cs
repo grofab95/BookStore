@@ -17,7 +17,7 @@ namespace BookStore.Domain.Tests.Entities
         }
 
         [Fact]
-        public void CreatedImage_Should_HasPath()
+        public void Image_Should_HasPath()
         {
             _image.Path.Should().NotBeNullOrEmpty();
         }

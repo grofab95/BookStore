@@ -15,25 +15,25 @@ namespace BookStore.Domain.Tests.Entities
         }
 
         [Fact]
-        public void CreatedAddress_Should_HasCity()
+        public void Address_Should_HasCity()
         {
             _address.City.Should().NotBeNullOrEmpty();
         }
 
         [Fact]
-        public void CreatedAddress_Should_HasStreet()
+        public void Address_Should_HasStreet()
         {
             _address.Street.Should().NotBeNullOrEmpty();
         }
 
         [Fact]
-        public void CreatedAddress_Should_HasHomeNumber()
+        public void Address_Should_HasHomeNumber()
         {
             _address.HomeNumber.Should().BePositive();
         }
 
         [Fact]
-        public void CreatedAddress_Should_PostCode()
+        public void Address_Should_PostCode()
         {
             _address.PostCode.Should().NotBeNullOrEmpty();
         }

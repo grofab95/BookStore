@@ -26,19 +26,19 @@ namespace BookStore.Domain.Tests.Entities
         }
 
         [Fact]
-        public void CreatedBook_Should_HasTitle()
+        public void Book_Should_HasTitle()
         {
             _book.Title.Should().NotBeNullOrEmpty();
         }
 
         [Fact]
-        public void CreatedBook_Should_HasCategory()
+        public void Book_Should_HasCategory()
         {
             _book.Category.Should().NotBeNull();
         }
 
         [Fact]
-        public void CreatedBook_Should_HasAuthors()
+        public void Book_Should_HasAuthors()
         {
             _book.Authors.Should()
                 .NotBeNull()

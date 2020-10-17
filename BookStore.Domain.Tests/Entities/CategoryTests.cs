@@ -8,7 +8,7 @@ namespace BookStore.Domain.Tests.Entities
     public class CategoryTests
     {
         [Fact]
-        public void CreatedCategory_Should_HasName()
+        public void Category_Should_HasName()
         {
             var category = new Category("Adventures");
 
