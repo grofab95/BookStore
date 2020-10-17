@@ -2,9 +2,9 @@
 
 namespace BookStore.Domain.Entities
 {
-    public class Path
+    public class Path : EntityBase
     {
-        public string Value { get; set; }
+        public string Value { get; }
 
         public Path(string value)
         {

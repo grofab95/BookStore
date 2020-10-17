@@ -5,9 +5,9 @@ namespace BookStore.Domain.Entities
 {
     public class Book : EntityBase
     {
-        public string Title { get; set; }
-        public Category Category { get; set; }
-        public List<Author> Authors { get; set; }
+        public string Title { get; }
+        public Category Category { get; }
+        public List<Author> Authors { get; }
 
         public Book(string title, Category category, List<Author> authors)
         {

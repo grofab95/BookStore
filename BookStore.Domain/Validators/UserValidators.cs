@@ -1,19 +1,11 @@
 ﻿using BookStore.Common.Exceptions;
 using BookStore.Common.Extensions;
+using System.Text.RegularExpressions;
 
 namespace BookStore.Domain.Validators
 {
-    public class AuthorValidators
+    public class UserValidators
     {
-        public static void ValidAuthorName(string firstName, string lastName)
-        {
-            ValidFirstName(firstName);
-            ValidLastName(lastName);
-
-            if (firstName.ToLower().Trim() == lastName.ToLower().Trim())
-                throw new SameNames();
-        }
-
         public static void ValidFirstName(string firstName)
         {
             if (firstName.IsNotExist())
@@ -24,6 +16,15 @@ namespace BookStore.Domain.Validators
         {
             if (lastName.IsNotExist())
                 throw new MissingLastName();
+        }
+
+        public static void ValidEmail(string email)
+        {
+            if (email.IsNotExist())
+                throw new MissingEmail();
+
+            if (!Regex.IsMatch(email, @"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$"))
+                throw new InvalidEmail();
         }
     }
 }

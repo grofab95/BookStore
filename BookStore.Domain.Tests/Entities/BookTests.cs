@@ -26,12 +26,6 @@ namespace BookStore.Domain.Tests.Entities
         }
 
         [Fact]
-        public void Book_Should_HasTitle()
-        {
-            _book.Title.Should().NotBeNullOrEmpty();
-        }
-
-        [Fact]
         public void Book_Should_HasCategory()
         {
             _book.Category.Should().NotBeNull();
@@ -49,6 +43,7 @@ namespace BookStore.Domain.Tests.Entities
         [Theory]
         [InlineData(null)]
         [InlineData("")]
+        [InlineData(" ")]
         public void ValidTitle_For_MissingTitle_Throw_MissingTitle(string title)
         {
             FluentActions.Invoking(() => new Book(title, _category, _authors))
@@ -71,6 +66,15 @@ namespace BookStore.Domain.Tests.Entities
             FluentActions.Invoking(() => new Book(_bookTitle, _category, authors))
                 .Should()
                 .Throw<MissingAuthors>();
+        }
+
+        [Fact]
+        public void Title_Should_ReturnTitle()
+        {
+            var expected = _bookTitle;
+            var actual = _book.Title;
+
+            actual.Should().Be(expected);
         }
     }
 }

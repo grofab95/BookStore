@@ -1,4 +1,5 @@
 ﻿using BookStore.Common.Exceptions;
+using BookStore.Common.Extensions;
 using BookStore.Domain.Entities;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,16 +10,13 @@ namespace BookStore.Domain.Validators
     {
         public static void ValidTitle(string title)
         {
-            if (string.IsNullOrEmpty(title))
+            if (title.IsNotExist())
                 throw new MissingTitle();
         }
 
         public static void ValidAuthors(List<Author> authors)
         {
-            if (authors == null)
-                throw new MissingAuthors();
-
-            if (!authors.Any())
+            if (authors == null || !authors.Any())
                 throw new MissingAuthors();
         }
     }

@@ -9,8 +9,7 @@ namespace BookStore.Domain.Validators
     {
         public static void ValidImageExtension(string path)
         {
-            var extension = path.Split('.').LastOrDefault()
-                ?? throw new MissingExtension();
+            var extension = path.Split('.').Last();
 
             if (!Enum.IsDefined(typeof(ImageExtension), extension.Trim()))
                 throw new InvalidImageExtension();

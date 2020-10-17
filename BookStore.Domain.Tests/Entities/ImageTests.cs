@@ -19,7 +19,7 @@ namespace BookStore.Domain.Tests.Entities
         [Fact]
         public void Image_Should_HasPath()
         {
-            _image.Path.Should().NotBeNullOrEmpty();
+            _image.Path.Should().NotBeNull();
         }
 
         [Theory]
@@ -28,7 +28,7 @@ namespace BookStore.Domain.Tests.Entities
         [InlineData("mp3")]
         [InlineData("rar")]
         [InlineData("zip")]
-        public void ValidPath_For_FileExtension_Throw_InvalidImageExtension(string imageExtension)
+        public void ValidImageExtension_For_FileExtension_Throw_InvalidImageExtension(string imageExtension)
         {
             var path = new Path($"location/image.{imageExtension}");
 

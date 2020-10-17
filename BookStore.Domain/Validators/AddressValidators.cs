@@ -1,4 +1,5 @@
 ﻿using BookStore.Common.Exceptions;
+using BookStore.Common.Extensions;
 using System.Text.RegularExpressions;
 
 namespace BookStore.Domain.Validators
@@ -7,19 +8,19 @@ namespace BookStore.Domain.Validators
     {
         public static void ValidCity(string city)
         {
-            if (string.IsNullOrEmpty(city))
+            if (city.IsNotExist())
                 throw new MissingCity();
         }
 
         public static void ValidStreet(string street)
         {
-            if (string.IsNullOrEmpty(street))
+            if (street.IsNotExist())
                 throw new MissingStreet();
         }
 
         public static void ValidPostcode(string postCode)
         {
-            if (string.IsNullOrEmpty(postCode))
+            if (postCode.IsNotExist())
                 throw new MissingPostcode();
 
             if (!Regex.IsMatch(postCode, @"\d{2}-\d{3}"))

@@ -4,11 +4,11 @@ namespace BookStore.Domain.Entities
 {
     public class Address
     {
-        public string City { get; set; }
-        public string Street { get; set; }
-        public int HomeNumber { get; set; }
-        public int? FlatNumber { get; set; }
-        public string PostCode { get; set; }
+        public string City { get; }
+        public string Street { get; }
+        public string PostCode { get; }
+        public int HomeNumber { get; }
+        public int? FlatNumber { get; }        
 
         public Address(string city, string street, string postcode, int homeNumber, int? flatNumber = null)
         {

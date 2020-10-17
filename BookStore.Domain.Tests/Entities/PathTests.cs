@@ -15,10 +15,15 @@ namespace BookStore.Domain.Tests.Entities
             _path = new Path(_value);
         }
 
-        [Fact]
-        public void Path_Should_HasValue()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void ValidPath_For_MissingPath_Throw_MissingPath(string value)
         {
-            _path.Value.Should().NotBeNullOrEmpty();
+            FluentActions.Invoking(() => new Path(value))
+                .Should()
+                .Throw<MissingPath>();
         }
 
         [Fact]

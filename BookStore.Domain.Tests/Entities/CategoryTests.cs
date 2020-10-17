@@ -7,20 +7,25 @@ namespace BookStore.Domain.Tests.Entities
 {
     public class CategoryTests
     {
-        [Fact]
-        public void Category_Should_HasName()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void ValidName_For_MissingName_Throw_EmptyName(string name)
         {
-            var category = new Category("Adventures");
-
-            category.Name.Should().NotBeNull();
+            FluentActions.Invoking(() => new Category(name))
+                .Should()
+                .Throw<MissingName>();
         }
 
         [Fact]
-        public void ValidName_For_MissingName_Throw_EmptyName()
+        public void Name_Should_ReturnFirstNameAndLastName()
         {
-            FluentActions.Invoking(() => new Category(""))
-                .Should()
-                .Throw<MissingName>();
+            var category = new Category("Adventures");
+            var expected = "Adventures";
+            var actual = category.Name;
+
+            actual.Should().Be(expected);
         }
     }
 }

@@ -14,42 +14,24 @@ namespace BookStore.Domain.Tests.Entities
             _address = new Address("Opole", "Prószkowska", "45-758", 76);
         }
 
-        [Fact]
-        public void Address_Should_HasCity()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void ValidCity_For_MissingCity_Throw_MissingCity(string city)
         {
-            _address.City.Should().NotBeNullOrEmpty();
-        }
-
-        [Fact]
-        public void Address_Should_HasStreet()
-        {
-            _address.Street.Should().NotBeNullOrEmpty();
-        }
-
-        [Fact]
-        public void Address_Should_HasHomeNumber()
-        {
-            _address.HomeNumber.Should().BePositive();
-        }
-
-        [Fact]
-        public void Address_Should_PostCode()
-        {
-            _address.PostCode.Should().NotBeNullOrEmpty();
-        }
-
-        [Fact]
-        public void ValidCity_For_MissingCity_Throw_MissingCity()
-        {
-            FluentActions.Invoking(() => new Address(null, "Prószkowska", "45-758", 76))
+            FluentActions.Invoking(() => new Address(city, "Prószkowska", "45-758", 76))
                 .Should()
                 .Throw<MissingCity>();
         }
 
-        [Fact]
-        public void ValidStreet_For_MissingStreet_Throw_MissingStreet()
+        [Theory]
+        [InlineData(null)]
+        [InlineData("")]
+        [InlineData(" ")]
+        public void ValidStreet_For_MissingStreet_Throw_MissingStreet(string street)
         {
-            FluentActions.Invoking(() => new Address("Opole", null, "45-758", 76))
+            FluentActions.Invoking(() => new Address("Opole", street, "45-758", 76))
                 .Should()
                 .Throw<MissingStreet>();
         }
@@ -94,28 +76,23 @@ namespace BookStore.Domain.Tests.Entities
         }
 
         [Fact]
-        public void GetAddress_For_ReturnAddressInfo()
+        public void GetAddress_Should_ReturnAddressInfo()
         {
             var expected = "45-758 Opole, ul. Prószkowska 76";
             var actual = _address.GetAddress();
-
-            Assert.Equal(expected, actual);
 
             actual.Should().Be(expected);
         }
 
         [Fact]
-        public void GetAddress_For_ReturnAddressInfoWithFlatNumber()
+        public void GetAddress_Should_ReturnAddressInfoWithFlatNumber()
         {
             var address = new Address("Opole", "Prószkowska", "45-758", 76, 1);
 
             var expected = "45-758 Opole, ul. Prószkowska 76/1";
             var actual = address.GetAddress();
 
-            Assert.Equal(expected, actual);
-
             actual.Should().Be(expected);
         }
-
     }
 }

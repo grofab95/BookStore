@@ -1,16 +1,20 @@
 ﻿using BookStore.Common.Exceptions;
+using BookStore.Common.Extensions;
 using System.Linq;
 
 namespace BookStore.Domain.Validators
 {
     public class PathValidators
     {
-        public static void ValidPath(string extension)
+        public static void ValidPath(string path)
         {
-            if (!extension.Any(c => c == '.'))
+            if (path.IsNotExist())
+                throw new MissingPath();
+
+            if (!path.Any(c => c == '.'))
                 throw new MissingExtension();
 
-            if (extension.Where(c => c == '.').Count() != 1)
+            if (path.Where(c => c == '.').Count() != 1)
                 throw new InvalidExtension();
         }
     }

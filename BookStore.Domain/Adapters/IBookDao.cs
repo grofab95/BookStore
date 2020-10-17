@@ -7,7 +7,7 @@ namespace BookStore.Domain.Adapters
     public interface IBookDao
     {
         Task<int> AddBookAsync(Book book);
-        Task<Book> GetBookById(int bookId);
+        Task<Book> GetBookByIdAsync(int bookId);
         Task<List<Book>> GetBooksAsync(int offset, int limit);
         Task<Book> UpdateBookAsync(Book book);
         Task RemoveBookAsync(Book book);
