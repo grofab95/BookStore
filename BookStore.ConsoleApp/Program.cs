@@ -1,6 +1,7 @@
 ﻿using BookStore.Common.Enums;
 using BookStore.Common.Validators;
 using System;
+using System.Net.Sockets;
 
 namespace BookStore.ConsoleApp
 {
@@ -8,11 +9,7 @@ namespace BookStore.ConsoleApp
     {
         static void Main()
         {
-            var path = "localization/file.exe";
-
-            ImageValidators.ValidImageExtension(path);
-
-            var test = Enum.IsDefined(typeof(ImageExtension), path);
+            
         }
     }
 }
