@@ -1,9 +1,10 @@
-﻿using BookStore.Domain.Validators;
+﻿using BookStore.Domain.Abstract;
+using BookStore.Domain.Validators;
 using System.Collections.Generic;
 
 namespace BookStore.Domain.Entities
 {
-    public class Book : EntityBase
+    public class Book : EntityBase, StockInfo
     {
         public string Title { get; }
         public Category Category { get; }
@@ -20,5 +21,7 @@ namespace BookStore.Domain.Entities
             Authors = authors;
             Stock = new Stock(vat);
         }
+
+        public int GetQuantity() => Stock.Quantity;
     }
 }
