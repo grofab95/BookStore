@@ -1,5 +1,4 @@
-﻿using BookStore.Validators;
-using System;
+﻿using BookStore.Domain.Validators;
 using System.Collections.Generic;
 
 namespace BookStore.Domain.Entities
@@ -10,18 +9,14 @@ namespace BookStore.Domain.Entities
         public Category Category { get; set; }
         public List<Author> Authors { get; set; }
 
-        public Book(string title, Category category)
+        public Book(string title, Category category, List<Author> authors)
         {
             BookValidators.ValidTitle(title);
+            BookValidators.ValidAuthors(authors);
 
             Title = title;            
             Category = category;
-            Authors = new List<Author>();
-        }
-
-        public void AddAuthor(Author author)
-        {
-            Authors.Add(author);
+            Authors = authors;
         }
     }
 }

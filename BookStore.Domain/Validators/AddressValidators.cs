@@ -1,7 +1,7 @@
 ﻿using BookStore.Common.Exceptions;
 using System.Text.RegularExpressions;
 
-namespace BookStore.Common.Validators
+namespace BookStore.Domain.Validators
 {
     public class AddressValidators
     {

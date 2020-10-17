@@ -1,6 +1,6 @@
 ﻿using BookStore.Common.Exceptions;
 
-namespace BookStore.Validators
+namespace BookStore.Domain.Validators
 {
     public class AuthorValidators
     {

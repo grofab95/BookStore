@@ -1,7 +1,7 @@
 ﻿using BookStore.Common.Exceptions;
 using System.Linq;
 
-namespace BookStore.Common.Validators
+namespace BookStore.Domain.Validators
 {
     public class PathValidators
     {

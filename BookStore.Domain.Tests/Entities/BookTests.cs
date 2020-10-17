@@ -1,6 +1,7 @@
 ﻿using BookStore.Common.Exceptions;
 using BookStore.Domain.Entities;
 using FluentAssertions;
+using System.Collections.Generic;
 using Xunit;
 
 namespace BookStore.Domain.Tests.Entities
@@ -8,17 +9,20 @@ namespace BookStore.Domain.Tests.Entities
     public class BookTests
     {
         private readonly string _bookTitle = "Robinson Crusoe";
-        private readonly string _categoryName = "Adventures";
-        private readonly string _authorFirstName = "Jack";
-        private readonly string _authorLastName = "London";
 
-        private Book _book;
         private Category _category;
+        private List<Author> _authors;
+        private Book _book;
 
         public BookTests()
         {
-            _category = new Category(_categoryName);
-            _book = new Book(_bookTitle, _category);
+            _category = new Category("Adventures");
+            _authors = new List<Author> 
+            {
+                new Author("Jack", "London")
+            };
+
+            _book = new Book(_bookTitle, _category, _authors);           
         }
 
         [Fact]
@@ -34,29 +38,39 @@ namespace BookStore.Domain.Tests.Entities
         }
 
         [Fact]
-        public void CreatedBookShouldHasNotNullAuthorsList()
+        public void CreatedBookShouldHasAuthors()
         {
-            _book.Authors.Should().NotBeNull();  
+            _book.Authors.Should()
+                .NotBeNull()
+                .And
+                .NotBeEmpty();  
         }
 
         [Theory]
-        [InlineData("")]
         [InlineData(null)]
-        public void ValidTitle_For_MissingTitle_Throw_EmptyTitle(string title)
+        [InlineData("")]
+        public void ValidTitle_For_MissingTitle_Throw_MissingTitle(string title)
         {
-            FluentActions.Invoking(() => new Book(title, _category))
+            FluentActions.Invoking(() => new Book(title, _category, _authors))
                 .Should()
                 .Throw<MissingTitle>();
         }
 
         [Fact]
-        public void AddAuthor_Expect_AddedAuthor()
+        public void ValidAuthors_For_MissingAuthors_Throw_MissingAuthors()
         {
-            var author = new Author(_authorFirstName, _authorLastName);
+            FluentActions.Invoking(() => new Book(_bookTitle, _category, null))
+                .Should()
+                .Throw<MissingAuthors>();
+        }
 
-            _book.AddAuthor(author);
-
-            _book.Authors.Should().Contain(author);
+        [Fact]
+        public void ValidAuthors_For_EmptyAuthorsList_Throw_MissingAuthors()
+        {
+            var authors = new List<Author>();
+            FluentActions.Invoking(() => new Book(_bookTitle, _category, authors))
+                .Should()
+                .Throw<MissingAuthors>();
         }
     }
 }

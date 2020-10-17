@@ -1,7 +1,6 @@
 ﻿using BookStore.Common.Exceptions;
 using BookStore.Domain.Entities;
 using FluentAssertions;
-using System;
 using Xunit;
 
 namespace BookStore.Domain.Tests.Entities
@@ -12,7 +11,7 @@ namespace BookStore.Domain.Tests.Entities
 
         public AddressTests()
         {
-            _address = new Address("Opole", "Prószkowska", "47-143", 13);
+            _address = new Address("Opole", "Prószkowska", "45-758", 76);
         }
 
         [Fact]
@@ -42,7 +41,7 @@ namespace BookStore.Domain.Tests.Entities
         [Fact]
         public void ValidCity_For_MissingCity_Throw_MissingCity()
         {
-            FluentActions.Invoking(() => new Address(null, "Prószkowska", "47-143", 13))
+            FluentActions.Invoking(() => new Address(null, "Prószkowska", "45-758", 76))
                 .Should()
                 .Throw<MissingCity>();
         }
@@ -50,7 +49,7 @@ namespace BookStore.Domain.Tests.Entities
         [Fact]
         public void ValidStreet_For_MissingStreet_Throw_MissingStreet()
         {
-            FluentActions.Invoking(() => new Address("Opole", null, "47-143", 13))
+            FluentActions.Invoking(() => new Address("Opole", null, "45-758", 76))
                 .Should()
                 .Throw<MissingStreet>();
         }
@@ -60,7 +59,7 @@ namespace BookStore.Domain.Tests.Entities
         [InlineData(0)]
         public void ValidHomeNumber_For_NotPositiveNumber_Throw_NotPositiveHomeNumber(int homeNumber)
         {
-            FluentActions.Invoking(() => new Address("Opole", "Prószkowska", "47-143", homeNumber))
+            FluentActions.Invoking(() => new Address("Opole", "Prószkowska", "45-758", homeNumber))
                 .Should()
                 .Throw<NotPositiveHomeNumber>();
         }
@@ -70,7 +69,7 @@ namespace BookStore.Domain.Tests.Entities
         [InlineData(0)]
         public void ValidFlatNumber_For_NotPositiveNumber_Throw_NotPositiveFlatNumber(int flatNumber)
         {
-            FluentActions.Invoking(() => new Address("Opole", "Prószkowska", "47-143", 1, flatNumber))
+            FluentActions.Invoking(() => new Address("Opole", "Prószkowska", "45-758", 1, flatNumber))
                 .Should()
                 .Throw<NotPositiveFlatNumber>();
         }
@@ -78,20 +77,45 @@ namespace BookStore.Domain.Tests.Entities
         [Fact]
         public void ValidStreet_For_MissingPostCode_Throw_MissingPostCode()
         {
-            FluentActions.Invoking(() => new Address("Opole", "Prószkowska", null, 13))
+            FluentActions.Invoking(() => new Address("Opole", "Prószkowska", null, 76))
                 .Should()
                 .Throw<MissingPostcode>();
         }
 
         [Theory]
-        [InlineData("47143")]
+        [InlineData("45758")]
         [InlineData("xx-yyy")]
         [InlineData("#$%")]
         public void ValidPostCode_For_InvalidPostcode_Throw_InvalidPostcode(string postCode)
         {
-            FluentActions.Invoking(() => new Address("Opole", "Prószkowska", postCode, 13))
+            FluentActions.Invoking(() => new Address("Opole", "Prószkowska", postCode, 76))
                 .Should()
                 .Throw<InvalidPostcode>();
         }
+
+        [Fact]
+        public void GetAddress_For_ReturnAddressInfo()
+        {
+            var expected = "45-758 Opole, ul. Prószkowska 76";
+            var actual = _address.GetAddress();
+
+            Assert.Equal(expected, actual);
+
+            actual.Should().Be(expected);
+        }
+
+        [Fact]
+        public void GetAddress_For_ReturnAddressInfoWithFlatNumber()
+        {
+            var address = new Address("Opole", "Prószkowska", "45-758", 76, 1);
+
+            var expected = "45-758 Opole, ul. Prószkowska 76/1";
+            var actual = address.GetAddress();
+
+            Assert.Equal(expected, actual);
+
+            actual.Should().Be(expected);
+        }
+
     }
 }

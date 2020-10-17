@@ -1,4 +1,4 @@
-﻿using BookStore.Common.Validators;
+﻿using BookStore.Domain.Validators;
 
 namespace BookStore.Domain.Entities
 {
@@ -24,5 +24,9 @@ namespace BookStore.Domain.Entities
             HomeNumber = homeNumber;
             FlatNumber = flatNumber;
         }
+
+        public string GetAddress() => FlatNumber == null
+            ? $"{PostCode} {City}, ul. {Street} {HomeNumber}"
+            : $"{PostCode} {City}, ul. {Street} {HomeNumber}/{FlatNumber}";        
     }
 }

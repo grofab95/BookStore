@@ -1,4 +1,4 @@
-﻿using BookStore.Validators;
+﻿using BookStore.Domain.Validators;
 
 namespace BookStore.Domain.Entities
 {
