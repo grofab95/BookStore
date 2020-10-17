@@ -16,7 +16,7 @@ namespace BookStore.Domain.Tests.Entities
         }
 
         [Fact]
-        public void CreatedPathShouldHasValue()
+        public void CreatedPath_Should_HasValue()
         {
             _path.Value.Should().NotBeNullOrEmpty();
         }

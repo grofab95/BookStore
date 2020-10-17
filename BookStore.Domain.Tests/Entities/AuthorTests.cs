@@ -11,7 +11,7 @@ namespace BookStore.Domain.Tests.Entities
         private readonly string _lastName = "London";
 
         [Fact]
-        public void CreatedAuthorShouldHasFirstName()
+        public void CreatedAuthor_Should_HasFirstName()
         {
             var author = new Author(_firstName, _lastName);
 
@@ -19,7 +19,7 @@ namespace BookStore.Domain.Tests.Entities
         }
 
         [Fact]
-        public void CreatedAuthorShouldHasLastName()
+        public void CreatedAuthor_Should_HasLastName()
         {
             var author = new Author(_firstName, _lastName);
 
