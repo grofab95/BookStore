@@ -1,6 +1,6 @@
-﻿using BookStore.Common.Exceptions;
-using BookStore.Domain.Entities;
+﻿using BookStore.Domain.Entities;
 using FluentAssertions;
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -54,7 +54,7 @@ namespace BookStore.Domain.Tests.Entities
         {
             FluentActions.Invoking(() => new Book(title, _category, 5, _authors))
                 .Should()
-                .Throw<MissingTitle>();
+                .Throw<ArgumentException>();
         }
 
         [Fact]
@@ -62,7 +62,7 @@ namespace BookStore.Domain.Tests.Entities
         {
             FluentActions.Invoking(() => new Book(_bookTitle, _category, 5, null))
                 .Should()
-                .Throw<MissingAuthors>();
+                .Throw<ArgumentException>();
         }
 
         [Fact]
@@ -71,7 +71,7 @@ namespace BookStore.Domain.Tests.Entities
             var authors = new List<Author>();
             FluentActions.Invoking(() => new Book(_bookTitle, _category, 5, authors))
                 .Should()
-                .Throw<MissingAuthors>();
+                .Throw<ArgumentException>();
         }
 
         [Fact]

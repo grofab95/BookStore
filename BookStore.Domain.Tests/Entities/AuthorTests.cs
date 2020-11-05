@@ -1,6 +1,7 @@
 ﻿using BookStore.Common.Exceptions;
 using BookStore.Domain.Entities;
 using FluentAssertions;
+using System;
 using Xunit;
 
 namespace BookStore.Domain.Tests.Entities
@@ -25,7 +26,7 @@ namespace BookStore.Domain.Tests.Entities
         {
             FluentActions.Invoking(() => new Author(firstName, _lastName))
                 .Should()
-                .Throw<MissingFirstName>();
+                .Throw<ArgumentException>();
         }
 
         [Theory]
@@ -36,7 +37,7 @@ namespace BookStore.Domain.Tests.Entities
         {
             FluentActions.Invoking(() => new Author(_firstName, lastName))
                 .Should()
-                .Throw<MissingLastName>();
+                .Throw<ArgumentException>();
         }
 
         [Fact]

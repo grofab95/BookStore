@@ -1,5 +1,5 @@
-﻿using BookStore.Common.Exceptions;
-using BookStore.Common.Extensions;
+﻿using BookStore.Common.Extensions;
+using System;
 
 namespace BookStore.Domain.Validators
 {
@@ -8,7 +8,7 @@ namespace BookStore.Domain.Validators
         public static void ValidName(string name)
         {
             if (name.IsNotExist())
-                throw new MissingName();
+                throw new ArgumentException("Name is required.");
         }
     }
 }

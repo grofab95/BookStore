@@ -1,6 +1,7 @@
 ﻿using BookStore.Common.Exceptions;
 using BookStore.Domain.Entities;
 using FluentAssertions;
+using System;
 using Xunit;
 
 namespace BookStore.Domain.Tests.Entities
@@ -23,7 +24,7 @@ namespace BookStore.Domain.Tests.Entities
         {
             FluentActions.Invoking(() => new Path(value))
                 .Should()
-                .Throw<MissingPath>();
+                .Throw<ArgumentException>();
         }
 
         [Fact]
@@ -33,7 +34,7 @@ namespace BookStore.Domain.Tests.Entities
 
             FluentActions.Invoking(() => new Path(value))
                 .Should()
-                .Throw<MissingExtension>();
+                .Throw<ArgumentException>();
         }
 
         [Fact]
