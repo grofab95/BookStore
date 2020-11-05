@@ -3,7 +3,7 @@
     public class InvalidVat : BookStoreException
     {
         private const string message =
-            "Vat is not valid!";
+            "Vat is invalid!";
 
         public InvalidVat() : base(message)
         { }

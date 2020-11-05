@@ -3,7 +3,7 @@
     public class InvalidImageExtension : BookStoreException
     {
         private const string message =
-            "Image extension is not valid!";
+            "Image extension is invalid!";
 
         public InvalidImageExtension() : base(message)
         { }

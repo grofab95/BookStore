@@ -3,7 +3,7 @@
     public class InvalidExtension : BookStoreException
     {
         private const string message =
-            "Extension is not valid!";
+            "Extension is invalid!";
 
         public InvalidExtension() : base(message)
         { }
