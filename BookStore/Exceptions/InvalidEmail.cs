@@ -3,7 +3,7 @@
     public class InvalidEmail : BookStoreException
     {
         private const string message =
-            "E-mail is not valid!";
+            "E-mail is invalid!";
 
         public InvalidEmail() : base(message)
         { }

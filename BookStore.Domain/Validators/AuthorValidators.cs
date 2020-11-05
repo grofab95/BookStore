@@ -1,5 +1,6 @@
 ﻿using BookStore.Common.Exceptions;
 using BookStore.Common.Extensions;
+using System;
 
 namespace BookStore.Domain.Validators
 {
@@ -17,13 +18,13 @@ namespace BookStore.Domain.Validators
         public static void ValidFirstName(string firstName)
         {
             if (firstName.IsNotExist())
-                throw new MissingFirstName();
+                throw new ArgumentException("First name is required.");
         }
 
         public static void ValidLastName(string lastName)
         {
             if (lastName.IsNotExist())
-                throw new MissingLastName();
+                throw new ArgumentException("Last name is required.");
         }
     }
 }

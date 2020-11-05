@@ -1,6 +1,7 @@
 ﻿using BookStore.Common.Exceptions;
 using BookStore.Domain.Entities;
 using FluentAssertions;
+using System;
 using Xunit;
 
 namespace BookStore.Domain.Tests.Entities
@@ -22,7 +23,7 @@ namespace BookStore.Domain.Tests.Entities
         {
             FluentActions.Invoking(() => new Address(city, "Prószkowska", "45-758", 76))
                 .Should()
-                .Throw<MissingCity>();
+                .Throw<ArgumentException>();
         }
 
         [Theory]
@@ -33,7 +34,7 @@ namespace BookStore.Domain.Tests.Entities
         {
             FluentActions.Invoking(() => new Address("Opole", street, "45-758", 76))
                 .Should()
-                .Throw<MissingStreet>();
+                .Throw<ArgumentException>();
         }
         
         [Theory]
@@ -61,7 +62,7 @@ namespace BookStore.Domain.Tests.Entities
         {
             FluentActions.Invoking(() => new Address("Opole", "Prószkowska", null, 76))
                 .Should()
-                .Throw<MissingPostcode>();
+                .Throw<ArgumentException>();
         }
 
         [Theory]

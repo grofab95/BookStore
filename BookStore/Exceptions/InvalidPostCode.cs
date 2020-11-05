@@ -3,7 +3,7 @@
     public class InvalidPostcode : BookStoreException
     {
         private const string message =
-            "Postcode is not valid!";
+            "Postcode is invalid!";
 
         public InvalidPostcode() : base(message)
         { }

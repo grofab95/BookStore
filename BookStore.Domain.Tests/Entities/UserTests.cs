@@ -1,6 +1,7 @@
 ﻿using BookStore.Common.Exceptions;
 using BookStore.Domain.Entities;
 using FluentAssertions;
+using System;
 using Xunit;
 
 namespace BookStore.Domain.Tests.Entities
@@ -24,7 +25,7 @@ namespace BookStore.Domain.Tests.Entities
         {
             FluentActions.Invoking(() => new User(firstName, "Grochla", "fabian.grochla@gmail.com", _address))
                 .Should()
-                .Throw<MissingFirstName>();
+                .Throw<ArgumentException>();
         }
 
         [Theory]
@@ -35,7 +36,7 @@ namespace BookStore.Domain.Tests.Entities
         {
             FluentActions.Invoking(() => new User("Fabian", lastName, "fabian.grochla@gmail.com", _address))
                 .Should()
-                .Throw<MissingLastName>();
+                .Throw<ArgumentException>();
         }
 
         [Theory]
@@ -46,7 +47,7 @@ namespace BookStore.Domain.Tests.Entities
         {
             FluentActions.Invoking(() => new User("Fabian", "Grochla", email, _address))
                 .Should()
-                .Throw<MissingEmail>();
+                .Throw<ArgumentException>();
         }
 
         [Theory]
